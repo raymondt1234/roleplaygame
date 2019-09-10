@@ -1,0 +1,15 @@
+body {
+    background-image: url("../images/40kBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h1 {
+    color: white;
+    text-align: right;
+    padding-right: 100px;
+}
+h2 {
+    color: white;
+    padding: 0px;
+    margin: 0px;
+}
