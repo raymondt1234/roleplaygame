@@ -13,7 +13,7 @@
 
 
 
-    <link href="/Assets/css/style.css" rel="stylesheet">
+    <link href="./Assets/css/style.css" rel="stylesheet">
     <title>Warhammer 40,000 RPG!</title>
 </head>
 
@@ -36,20 +36,43 @@
     <div class="container-fluid">
         <div class="row">
             <!--Character select row-->
-            <div id="playerCard-1" class="col-1"></div>
+            <div id="player-1" class="col-1">
+            </div>
             <div class="col-11"></div>
         </div>
     </div>
     <h2>Your Character</h2>
     <h2>Enemies Available to Attack</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <!--Enemy select row-->
+            <div id="enemy-0" class="col-1">
+            </div>
+            <div id="enemy-1" class="col-1">
+            </div>
+            <div id="enemy-2" class="col-1">
+            </div>
+            <div id="enemy-3" class="col-1">
+            </div>
+            <div class="col-8"></div>
+        </div>
+    </div>
     <h2>Fight Section</h2>
-    <button type="button" class="btn">Attack</button>
+    <button type="button" class="btn inactive">Attack</button>
     <h2>Defender</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <!--Defender row-->
+            <div id="defender-1" class="col-1">
+            </div>
+            <div class="col-11"></div>
+        </div>
+    </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="Assets/javascript/game.js"></script>
+    <script src="./Assets/javascript/game.js"></script>
 
 </body>
 

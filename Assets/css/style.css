@@ -17,5 +17,20 @@ img {
     height: 125px;
     width: 125px;
     object-fit: cover;
-    overflow: hidden;
+}
+.card {
+    width: 175px;
+    height: 250px;
+}
+.player {
+    color: black;
+    background-color: lightskyblue;
+}
+.enemy {
+    color: aliceblue;
+    background-color: maroon;
+}
+.inactive {
+    color: black;
+    background-color: darkgray;
 }
