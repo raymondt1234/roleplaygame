@@ -1,4 +1,4 @@
-$(document).ready(function () {
+// Objects
 function fighter(name, healthPoints, attackPower, counterAttackPower) {
     this.name = name;
     this.healthPoints = healthPoints;
@@ -36,7 +36,7 @@ function createCharCard(fighter, colNum, colType) {
     
     let fgtSelect;
     if (colType === "inactive") {
-        fgtSelect = `#$enemy-${colNum}`
+        fgtSelect = `#enemy-${colNum}`
     } else {
         fgtSelect = `#${colType}-${colNum}`
     }
@@ -45,7 +45,7 @@ function createCharCard(fighter, colNum, colType) {
 }
 function clearRow(colType) {
     for (let i = 0; i < 4; i++) {
-        let cardLoc = "#" + colType + "-" + i;
+        let cardLoc = `#${colType}-${i}`;
         $(cardLoc).html("");
     }
 }
@@ -60,7 +60,7 @@ console.log("");
 populateFighters();
 showFighters();
 
-// $(document).ready(function () {
+$(document).ready(function () {
     // Select a fighter.
     $(".fgtSelect").on("click", function () {
         let fighterName = $(this).attr("id");
@@ -80,7 +80,7 @@ showFighters();
         clearRow("fgtSelect");
     });
     // Select an enemy.
-    $(".enemy").on("click", function () {
+    $(document).on("click", ".enemy", function () {
         console.log("enemy clicked");
         let defenderName = $(this).attr("id");
         console.log(`Defender Name: ${defenderName}`);
@@ -98,7 +98,7 @@ showFighters();
         });
         clearRow("enemy");
         fighters.forEach(function (fighter,index) {
-            createCharCard(fighter, index, "inactive")
+            createCharCard(fighter, index, "inactive");
         });
     });
 });
