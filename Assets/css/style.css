@@ -26,7 +26,11 @@ img {
     color: black;
     background-color: lightskyblue;
 }
-.enemy {
+.fgtSelect {
+    color: black;
+    background-color: lightskyblue;
+}
+.enemy, .defender {
     color: aliceblue;
     background-color: maroon;
 }
