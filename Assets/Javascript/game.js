@@ -36,9 +36,9 @@ function createCharCard(fighter, colNum, colType) {
     
     let fgtSelect;
     if (colType === "inactive") {
-        fgtSelect = `#enemy-${colNum}`
+        fgtSelect = `#enemy-${colNum}`;
     } else {
-        fgtSelect = `#${colType}-${colNum}`
+        fgtSelect = `#${colType}-${colNum}`;
     }
     
     let cardDiv = $("<div>");
