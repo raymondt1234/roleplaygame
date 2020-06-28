@@ -17,10 +17,13 @@ img {
     height: 125px;
     width: 125px;
     object-fit: cover;
+    /* object-fit: fill; */
 }
 .card {
     width: 175px;
     height: 250px;
+    padding: 2px;
+    /* align-items: center; */
 }
 .player {
     color: black;

@@ -40,8 +40,35 @@ function createCharCard(fighter, colNum, colType) {
     } else {
         fgtSelect = `#${colType}-${colNum}`
     }
+    
+    let cardDiv = $("<div>");
 
-    $(fgtSelect).append(`<div class="card ${colType}" id = "${fighter.name}"><div class="card-header">${fighter.name}</div><div class="card-body"><img class="img-responsive" src="./Assets/images/${fighter.name}.jpg"alt="${fighter.name}"></div><div class="card-footer">HP: <span id = "${fighter.name}-HP">${fighter.healthPoints}</span></div>`);
+    cardDiv.attr("class", `card ${colType}`);
+    cardDiv.attr("id", `${fighter.name}`);
+
+    let cardHeader = $("<div>");
+    cardHeader.attr("class", "card-header");
+    cardHeader.html(fighter.name);
+
+    let cardBody = $("<div>");
+    cardBody.attr("class", "card-body");
+
+    let image = $("<img>");
+    image.attr("class", "img-responsive");
+    image.attr("src", `./Assets/images/${fighter.name}.jpg`);
+    image.attr("alt", `${fighter.name}`);
+    
+    cardBody.append(image);
+
+    let cardFooter = $("<div>");
+    cardFooter.attr("class", "card-footer");
+    cardFooter.html(`HP: <span id = "${fighter.name}-HP">${fighter.healthPoints}</span>`);
+
+    cardDiv.append(cardHeader);
+    cardDiv.append(cardBody);
+    cardDiv.append(cardFooter);
+
+    $(fgtSelect).append(cardDiv);
 }
 function clearRow(colType) {
     for (let i = 0; i < 4; i++) {
@@ -81,8 +108,9 @@ $(document).ready(function () {
     });
     // Select an enemy.
     $(document).on("click", ".enemy", function () {
-        console.log("enemy clicked");
         let defenderName = $(this).attr("id");
+
+        console.log("enemy clicked");
         console.log(`Defender Name: ${defenderName}`);
         
         fighters.forEach(function (fighter, index) {
