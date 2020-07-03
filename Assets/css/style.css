@@ -8,22 +8,23 @@ h1 {
     text-align: right;
     padding-right: 100px;
 }
-h2 {
+h2{
     color: white;
     padding: 0px;
     margin: 0px;
 }
 img {
-    height: 125px;
-    width: 125px;
+    height: 225px;
+    width: 225px;
     object-fit: cover;
-    /* object-fit: fill; */
+}
+#attackLog p{
+    color: white;
+    font-size: x-large;
+    font-weight: bold;
 }
 .card {
-    width: 175px;
-    height: 250px;
     padding: 2px;
-    /* align-items: center; */
 }
 .player {
     color: black;
@@ -40,4 +41,8 @@ img {
 .inactive {
     color: black;
     background-color: darkgray;
+}
+.active {
+    color: white;
+    background-color: green;
 }

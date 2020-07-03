@@ -1,46 +1,40 @@
+
 // Objects
 function fighter(name, healthPoints, attackPower, counterAttackPower) {
     this.name = name;
     this.healthPoints = healthPoints;
     this.attackPower = attackPower;
     this.counterAttackPower = counterAttackPower;
-    this.toString = function () {
-        return `Name: ${this.name} HP: ${this.healthPoints} AP: ${this.attackPower} CAP: ${this.counterAttackPower}`;
-    }
 };
 // Functions
 function populateFighters() {
     fighters = [];
 
-    fighters[0] = new fighter("Aeldari", 100, 8, 25);
-    fighters[1] = new fighter("Space Marines", 150, 6, 15);
-    fighters[2] = new fighter("Orks", 180, 5, 10);
-    fighters[3] = new fighter("Chaos", 140, 7, 15);
+    fighters[0] = new fighter("Aeldari", 120, 8, 15);
+    fighters[1] = new fighter("Space_Marines", 100, 14, 5);
+    fighters[2] = new fighter("Orks", 180, 7, 25);
+    fighters[3] = new fighter("Chaos", 150, 8, 20);
 
     clearRow("fgtSelect");
+    clearRow("enemy");
+    $("#player-1").html("");
+    $("#defender-1").html("");
+    $("#attackLog").html("");
+
     fighters.forEach(function (fighter, index) {
         createCharCard(fighter, index, "fgtSelect");
     });
 }
-function showFighters() {
-    
-    console.log("");
-    console.log("<+-------= Current Fighters =-------+>");
-    fighters.forEach(function (fighter) {
-        console.log(fighter.toString());
-    });
-    console.log("<+----------------------------------+>");
-    console.log("");
-}
+
 function createCharCard(fighter, colNum, colType) {
-    
+
     let fgtSelect;
     if (colType === "inactive") {
         fgtSelect = `#enemy-${colNum}`;
     } else {
         fgtSelect = `#${colType}-${colNum}`;
     }
-    
+
     let cardDiv = $("<div>");
 
     cardDiv.attr("class", `card ${colType}`);
@@ -54,10 +48,9 @@ function createCharCard(fighter, colNum, colType) {
     cardBody.attr("class", "card-body");
 
     let image = $("<img>");
-    image.attr("class", "img-responsive");
     image.attr("src", `./Assets/images/${fighter.name}.jpg`);
     image.attr("alt", `${fighter.name}`);
-    
+
     cardBody.append(image);
 
     let cardFooter = $("<div>");
@@ -76,57 +69,130 @@ function clearRow(colType) {
         $(cardLoc).html("");
     }
 }
+function startGame() {
+    fighters;
+    player;
+    playerLv = 1;
+    defender;
+
+    populateFighters();
+}
 
 // 
-let fighters = [];
+let fighters;
 let player;
-let playerLv = 1;
+let playerLv;
 let defender;
-console.log("Start game.js...");
-console.log("");
-populateFighters();
-showFighters();
+startGame();
 
 $(document).ready(function () {
-    // Select a fighter.
+
+    // Select a fighter
     $(".fgtSelect").on("click", function () {
         let fighterName = $(this).attr("id");
-        
+
         fighters.forEach(function (fighter, index) {
             if (fighter.name === fighterName) {
                 let playerTmp = fighters.splice(index, 1);
 
                 player = playerTmp[0];
                 createCharCard(player, 1, "player");
-                showFighters();
-            }             
+            }
         });
-        fighters.forEach(function (fighter,index) {
+        fighters.forEach(function (fighter, index) {
             createCharCard(fighter, index, "enemy")
         });
         clearRow("fgtSelect");
     });
-    // Select an enemy.
+
+    // Select an enemy
     $(document).on("click", ".enemy", function () {
         let defenderName = $(this).attr("id");
 
-        console.log("enemy clicked");
-        console.log(`Defender Name: ${defenderName}`);
-        
+        $("#attack").toggleClass("active inactive");
+
         fighters.forEach(function (fighter, index) {
             if (fighter.name === defenderName) {
                 let defenderTmp = fighters.splice(index, 1);
 
                 defender = defenderTmp[0];
-                console.log(defender);
-                
+
                 createCharCard(defender, 1, "defender");
-                showFighters();
-            }             
+            }
         });
         clearRow("enemy");
-        fighters.forEach(function (fighter,index) {
+        fighters.forEach(function (fighter, index) {
             createCharCard(fighter, index, "inactive");
+        });
+    });
+
+    // attack button
+    $(document).on("click", "#attack.active", function () {
+
+        let defenderP = $("<p>");
+        let playerP = $("<p>");
+        let winner = $("<p>");
+        
+        defender.healthPoints -= (player.attackPower * playerLv);
+        playerLv++;
+
+        $("#attackLog").html("");
+        
+        defenderP.html(`${defender.name} take ${player.attackPower * playerLv} damage`);
+        $("#attackLog").append(defenderP);
+        $(`#${defender.name}-HP`).html(defender.healthPoints);
+        
+        let restart = $("<button>");
+        restart.html("Restart Game");
+        restart.attr("id", "restart");
+        restart.addClass("btn active");
+        
+        let victory = $("<button>");
+        victory.html("Victory!");
+        victory.attr("id", "victory");
+        victory.addClass("btn active");
+
+        if (defender.healthPoints <= 0) {
+            $("#attack").toggleClass("active inactive");
+            winner.html(`${player.name} Victory`);
+            $("#attackLog").append(winner);
+            
+            
+            if (fighters.length < 1) {
+                $("#attackLog").append(`<p>Total Victory</p>`);
+                $("#attackLog").append(restart);
+            } else {
+                $("#attackLog").append(victory);
+            }
+        } else {
+            player.healthPoints -= defender.counterAttackPower;
+            playerP.html(`${player.name} take ${defender.counterAttackPower} damage`);
+            $("#attackLog").append(playerP);
+            $(`#${player.name}-HP`).html(player.healthPoints);
+            
+            if (player.healthPoints <= 0) {
+                $("#attack").toggleClass("active inactive");
+                winner.html(`${defender.name} Victory`);
+                $("#attackLog").append(winner);
+    
+                $("#attackLog").append(restart);
+            }
+        }
+    });
+
+    // restart button
+    $(document).on("click", "#restart.active", function () {
+        location.reload();
+    });
+
+    // victory button
+    $(document).on("click", "#victory.active", function () {
+        $("#attackLog").html("");
+        $("#defender-1").html("");
+
+        fighters.forEach(function (fighter) {
+            let name = fighter.name;
+            $(`#${name}`).toggleClass("enemy inactive");
         });
     });
 });
