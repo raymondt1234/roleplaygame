@@ -26,6 +26,9 @@ img {
 .card {
     padding: 2px;
 }
+.card-body {
+    text-align: center;
+}
 .player {
     color: black;
     background-color: lightskyblue;
